@@ -12,6 +12,10 @@ class App extends Component {
 
     }
 
+    componentDidMount(){
+        this.getUsers();
+    }
+
     getUsers() {
         console.log(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`);
         axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)

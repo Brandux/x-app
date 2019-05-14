@@ -4,6 +4,7 @@ import os  # nuevo
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy  # nuevo
 from flask_debugtoolbar import DebugToolbarExtension  # new
+from flask_cors import CORS # new
 
 
 # instanciando la db
@@ -15,6 +16,9 @@ toolbar = DebugToolbarExtension()  # new
 def create_app(script_info=None):
     # instanciado la app
     app = Flask(__name__)
+
+    # habilitando CORS
+    CORS(app) # new
 
 
 # establecer configuraicon

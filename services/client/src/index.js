@@ -2,14 +2,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import UserList from './component/UsersList';
 
 class App extends Component {
 
     // eslint-disable-next-line no-useless-constructor
     constructor(){
         super();
-        this.getUsers();
-
+        //  nuevo
+        this.state = {
+            users: []
+        };
     }
 
     componentDidMount(){
@@ -18,8 +21,8 @@ class App extends Component {
 
     getUsers() {
         console.log(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`);
-        axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
-        .then((res) => {console.log(res.data.data);})
+        axios.get(`localhost:3000/users`)
+        .then((res) => {this.setState({users: res.data.data.users});})
         .catch((err) => {console.log(err);});
     }
 
@@ -32,6 +35,7 @@ class App extends Component {
                 <br/>
                 <h1 className="title is-1"> all </h1>
                 <hr/><br/>
+                <UserList users={this.state.users}/>
             </div>
             </div>
             </div>

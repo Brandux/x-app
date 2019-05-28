@@ -4,11 +4,7 @@ import os  # nuevo
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy  # nuevo
 from flask_debugtoolbar import DebugToolbarExtension  # new
-<<<<<<< HEAD
 from flask_cors import CORS
-=======
-from flask_cors import CORS  # new
->>>>>>> c4f9abfc3ac26c74330e1f98997398fd849cda12
 
 
 # instanciando la db

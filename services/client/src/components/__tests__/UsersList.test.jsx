@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+
 import UsersList from '../UsersList';
+
 import renderer from 'react-test-renderer';
 
 const users = [

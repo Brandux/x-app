@@ -14,7 +14,7 @@ class App extends Component{
 
         this.state = {
             users: [],
-            username: '',
+            username: 'justatest',
             email: '',
         };
         this.addUser = this.addUser.bind(this);
@@ -27,7 +27,7 @@ class App extends Component{
 
     getUsers(){
         // console.log(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`);
-        axios.get(`http://localhost/users`)
+        axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
         .then((res) => { this.setState({ users: res.data.data.users});})
         .catch((err) => { console.log(err);});
     }
@@ -40,7 +40,7 @@ class App extends Component{
             email: this.state.email,
         };
 
-        axios.post(`http://localhost/users`,data)
+        axios.post(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`,data)
 		.then((res) => {
 			this.getUsers();
 			this.setState({username:'',email:''});

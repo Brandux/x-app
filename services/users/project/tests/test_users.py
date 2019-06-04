@@ -5,15 +5,7 @@ import json
 import unittest
 
 from project.tests.base import BaseTestCase
-from project import db
-from project.api.models import User
-
-
-def add_user(username, email):
-    user = User(username=username, email=email)
-    db.session.add(user)
-    db.session.commit()
-    return user
+from project.tests.utils import add_user
 
 
 class TestUserService(BaseTestCase):
@@ -35,7 +27,8 @@ class TestUserService(BaseTestCase):
                 '/users',
                 data=json.dumps({
                     'username': 'Brandux JUarez ',
-                    'email': 'branduxjuarez@upeu.edu.pe'
+                    'email': 'branduxjuarez@upeu.edu.pe',
+                    'password': 'greaterthaneight'
                 }),
                 content_type='application/json',
             )
@@ -65,7 +58,10 @@ class TestUserService(BaseTestCase):
         with self.client:
             response = self.client.post(
                 '/users',
-                data=json.dumps({'email': 'branduxjuarez@upeu.edu.pe'}),
+                data=json.dumps({
+                    'email': 'branduxjuarez@upeu.edu.pe',
+                    'password': 'greaterthaneight'
+                }),
                 content_type='application/json',
             )
             data = json.loads(response.data.decode())
@@ -80,7 +76,8 @@ class TestUserService(BaseTestCase):
                 '/users',
                 data=json.dumps({
                     'username': 'Brandux JUarez',
-                    'email': 'branduxjuarez@upeu.edu.pe'
+                    'email': 'branduxjuarez@upeu.edu.pe',
+                    'password': 'greaterthaneight'
                 }),
                 content_type='application/json',
             )
@@ -88,7 +85,8 @@ class TestUserService(BaseTestCase):
                 '/users',
                 data=json.dumps({
                     'username': 'Brandux JUarez',
-                    'email': 'branduxjuarez@upeu.edu.pe'
+                    'email': 'branduxjuarez@upeu.edu.pe',
+                    'password': 'greaterthaneight'
                 }),
                 content_type='application/json',
             )
@@ -100,7 +98,7 @@ class TestUserService(BaseTestCase):
 
     def test_single_user(self):
         """Asegurando de que se obtenga un user de forma correcta."""
-        user = add_user('Brandux JUarez', 'branduxjuarez@upeu.edu.pe')
+        user = add_user('Brandux JUarez', 'branduxjuarez@upeu.edu.pe', 'greaterthaneight')
         with self.client:
             response = self.client.get(f'/users/{user.id}')
             data = json.loads(response.data.decode())
@@ -132,8 +130,8 @@ class TestUserService(BaseTestCase):
     def test_all_users(self):
         """asegurando de que todos los usuarios se
         comporten correctamente"""
-        add_user('Brandux JUarez', 'branduxjuarez@upeu.edu.pe')
-        add_user('Didier', 'didi@upeu.edu.pe')
+        add_user('Brandux JUarez', 'branduxjuarez@upeu.edu.pe', 'greaterthaneight')
+        add_user('Didier', 'didi@upeu.edu.pe', 'greaterthaneight')
         with self.client:
             response = self.client.get('/users')
             data = json.loads(response.data.decode())
@@ -161,8 +159,8 @@ class TestUserService(BaseTestCase):
     def test_main_with_users(self):
         """Asegurando que la ruta principal funcione correctamente
         cuando un ususario es correctamente agregado a la base de datos"""
-        add_user('brandux', 'branduxjuarez@upeu.edu.pe')
-        add_user('didier', 'dbrandux@gmail.com')
+        add_user('brandux', 'branduxjuarez@upeu.edu.pe', 'greaterthaneight')
+        add_user('didier', 'dbrandux@gmail.com', 'greaterthaneight')
         with self.client:
             response = self.client.get('/')
             self.assertEqual(response.status_code, 200)
@@ -181,6 +179,7 @@ class TestUserService(BaseTestCase):
                 data=dict(
                     username='brandux',
                     email='branduxjuarez@upeu.edu.pe',
+                    password='greaterthaneight',
                 ),
                 follow_redirects=True
             )

@@ -42,8 +42,8 @@ def test():
 @cli.command('seed_db')
 def seed_db():
     """Sembrado en la base de datos"""
-    db.session.add(User(username='Brandux JUarez', email= 'branduxjuarez@upeu.edu.pe'))
-    db.session.add(User(username='Didier', email= 'didi@upeu.edu.pe'))
+    db.session.add(User(username='Brandux JUarez', email= 'branduxjuarez@upeu.edu.pe', password='greaterthaneight'))
+    db.session.add(User(username='Didier', email= 'didi@upeu.edu.pe', password='greaterthaneight'))
     db.session.commit()
 
 # nuevo -> de covertura

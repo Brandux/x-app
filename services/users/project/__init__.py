@@ -5,14 +5,15 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy  # nuevo
 from flask_debugtoolbar import DebugToolbarExtension  # new
 from flask_cors import CORS
-form flask_migrate import Migrate
-
+from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
 
 # instanciando la db
 db = SQLAlchemy()  # nuevo
 toolbar = DebugToolbarExtension()  # new
 cors = CORS()
 migrate = Migrate()
+bcrypt = Bcrypt()
 
 
 # new
@@ -34,6 +35,7 @@ def create_app(script_info=None):
     toolbar.init_app(app)
     cors.init_app(app)
     migrate.init_app(app, db)
+    bcrypt.init_app(app)
 
 
 # register blueprints

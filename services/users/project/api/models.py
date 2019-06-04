@@ -24,4 +24,3 @@ class User(db.Model):
         self.username = username
         self.email = email
         self.password = bcrypt.generate_password_hash(password).decode()
-    

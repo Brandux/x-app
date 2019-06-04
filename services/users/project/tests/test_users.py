@@ -98,7 +98,11 @@ class TestUserService(BaseTestCase):
 
     def test_single_user(self):
         """Asegurando de que se obtenga un user de forma correcta."""
-        user = add_user('Brandux JUarez', 'branduxjuarez@upeu.edu.pe', 'greaterthaneight')
+        user = add_user(
+            'Brandux JUarez',
+            'branduxjuarez@upeu.edu.pe',
+            'greaterthaneight',
+            )
         with self.client:
             response = self.client.get(f'/users/{user.id}')
             data = json.loads(response.data.decode())
@@ -130,7 +134,11 @@ class TestUserService(BaseTestCase):
     def test_all_users(self):
         """asegurando de que todos los usuarios se
         comporten correctamente"""
-        add_user('Brandux JUarez', 'branduxjuarez@upeu.edu.pe', 'greaterthaneight')
+        add_user(
+            'Brandux JUarez',
+            'branduxjuarez@upeu.edu.pe',
+            'greaterthaneight',
+            )
         add_user('Didier', 'didi@upeu.edu.pe', 'greaterthaneight')
         with self.client:
             response = self.client.get('/users')
